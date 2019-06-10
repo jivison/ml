@@ -1,7 +1,7 @@
 # Vscode config files
 .vscode
 
-# Old code that I don't wanna throw away but that should nmever see the light of day again
+# Old code that I don't wanna throw away but that should never see the light of day again
 archive/
 
 # Training checkpoints (generated) 
