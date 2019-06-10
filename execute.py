@@ -1,35 +1,49 @@
+# Keras imports
 from keras.models       import model_from_json
 from keras.callbacks    import ModelCheckpoint
 
+# Custom import, provides various functions to switch between human and network readable
 import data.scripts.contextualize as context
 
+# Numpy for arrays
 import numpy as np
+
+# Json for reading the network architecture
 import json as j
+
+# To clear the screen
 import os
 
+# Name of the AI that will be loaded
 NAME = "languageRecog[16, 32, 32, 4]"
 
+# Intialize the json variable
 json = None
 
+# Read the architecture jsonfile
 with open(f"checkpoints/{NAME}|structure.json", "r") as jsonfile:
     json = j.load(jsonfile)
 
+# Load the json into the model
 model = model_from_json(str(json))
 
+# Load the hd5 weights model
 model.load_weights(f"checkpoints/{NAME}|weights.best.hd5")
 
+# Compile the model
 model.compile(
     loss='categorical_crossentropy',
     optimizer="sgd",
     metrics=['accuracy'])
 
-
-
 print(f"Loaded model: '{NAME}'")
 
+# 
 while True:
     try:
         os.system("clear")
+  
+#   B)
         print(f"""
     __                                                ____                              _ __  _                ___    ____
    / /   ____ _____  ____ ___  ______ _____ ____     / __ \___  _________  ____ _____  (_) /_(_)___  ____     /   |  /  _/
@@ -42,18 +56,25 @@ while True:
 
 """) 
 
+        # Get the user's input word
         word = input("Try me!> ")
 
         while True:
+
+            # Check the validity of the word
             if context.validate(word)[0]:
                 break
             else:
+                # Let the user know where the problem is 
                 print(f"Bad char: '{context.validate(word)[1]}'")
 
+            # Scold the user for being bad
             word = input("Please enter a valid word> ")
         
+        # Machine readify the user's input
+        Xnew = np.array(context.index(word), dtype=float).T
 
-        Xnew = np.array(context.index(word)).T
+        # Get the network's guess
         Ynew = model.predict_classes(Xnew)
 
         print(f"The network guesses: {context.contextualize(Ynew)}")
@@ -62,6 +83,8 @@ while True:
 
         input()
 
+
+    # Smoother quit
     except KeyboardInterrupt:
         print("\nQuitting...")
         quit()
