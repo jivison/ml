@@ -9,3 +9,6 @@ checkpoints/
 
 # All local json files aren't useful/are generated
 *.json
+
+# Secret
+apikey

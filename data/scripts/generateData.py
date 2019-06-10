@@ -17,9 +17,11 @@ params = {
      ],
 }
 
-rqParams = {
-    "key" : "trnsl.1.1.20190604T204140Z.6a1166565ba3946d.6e89f6f5ba4aab6f5c1b1d76876a75394b2a6a91"
-}
+rqParams = {}
+
+with open("apikey", "r") as apikey:
+    rqParams["key"] = apikey.read()
+
 
 data = {}
 
