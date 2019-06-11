@@ -15,7 +15,9 @@ import json as j
 import os
 
 # Name of the AI that will be loaded
-NAME = "languageRecog[16, 32, 32, 4]"
+NAME = "languageRecog3.2[16, 64, 64, 4]"
+
+print(f"Loading model: '{NAME}'")
 
 # Intialize the json variable
 json = None
@@ -36,9 +38,7 @@ model.compile(
     optimizer="sgd",
     metrics=['accuracy'])
 
-print(f"Loaded model: '{NAME}'")
 
-# 
 while True:
     try:
         os.system("clear")
@@ -70,7 +70,10 @@ while True:
 
             # Scold the user for being bad
             word = input("Please enter a valid word> ")
-        
+
+        # Judo slice
+        word = word[:16]
+
         # Machine readify the user's input
         Xnew = np.array(context.index(word), dtype=float).T
 
@@ -84,7 +87,7 @@ while True:
         input()
 
 
-    # Smoother quit
     except KeyboardInterrupt:
+    # Smoother quit
         print("\nQuitting...")
         quit()

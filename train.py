@@ -7,25 +7,25 @@ from keras.callbacks    import ModelCheckpoint
 import numpy as np
 
 # Custom import, generates machine-understandable matrixes from raw data
-import data.scripts.generateMatrix 
+import data.newScripts.generateMatrix 
 
 # Used for saving the model's architecture
 from json import dump
 
 # The AI's name (and structure) for saving
-NAME = "languageRecog[16, 32, 32, 4]"
+NAME = "languageRecog3.3[16, 64, 64, 4]"
 
 # The training data, where X is input data and y is the expected output
-x_train, y_train = data.scripts.generateMatrix.main()
+x_train, y_train = data.newScripts.generateMatrix.main()
 
 # Initialize the model as a Sequential one
 model = Sequential()
 
 # Add the layers to the network              input shape is 16 because our words have a max length of 16
 model.add(Dense(units=16, activation='relu', input_shape=(16, )))
-model.add(Dense(units=32, activation="relu"))
-model.add(Dense(units=32, activation="relu"))
-model.add(Dense(units=4, activation='softmax'))
+model.add(Dense(units=64, activation="relu"))
+model.add(Dense(units=64, activation="relu"))
+model.add(Dense(units=4, activation='sigmoid'))
 
 # Compile the model
 model.compile(
@@ -46,4 +46,4 @@ checkpoint = ModelCheckpoint(weightsfile_path, monitor="acc", verbose=1, save_be
 callback_list = [checkpoint]
 
 # Trains the AI!
-model.fit(x_train, y_train, epochs=2000, batch_size=32, callbacks=callback_list)
+model.fit(x_train, y_train, epochs=20000, batch_size=32, callbacks=callback_list)

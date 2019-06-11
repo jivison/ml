@@ -56,7 +56,7 @@ def main():
         letterDict[letters[i]] = i + 1
 
     # Load the data
-    with open(f"/home/mattecatte/STEM/ml/data/scripts/dump/datafile.json", "r") as jsonfile:
+    with open(f"/home/mattecatte/STEM/ml/data/newScripts/datafile.json", "r") as jsonfile:
         json = j.load(jsonfile)
 
         # For every word
@@ -81,7 +81,7 @@ def main():
     random.shuffle(grandArray)
 
     # Turn the array of key value pairs into two 'linked' arrays
-    for i in range(100):
+    for i in range(3):
         for element in grandArray:
             outputArray.append(element["output"])
             inputArray.append(element["input"])
@@ -89,5 +89,5 @@ def main():
     print(f"\n~Processed {len(grandArray)} elements~")
 
     # Return those arrays
+    
     return np.array(inputArray, dtype=float), np.array(outputArray, dtype=float)
-
