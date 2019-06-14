@@ -24,7 +24,7 @@ def index(word):
     for i in range(0, 16 - len(indexarray)):
         indexarray.append([0])
 
-    print(f"\nInput array: {indexarray}\n")
+    print(f"\n  Input array: {indexarray}\n")
 
     return indexarray
 

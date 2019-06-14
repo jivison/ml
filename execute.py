@@ -15,7 +15,7 @@ import json as j
 import os
 
 # Name of the AI that will be loaded
-NAME = "languageRecog3.2[16, 64, 64, 4]"
+NAME = "languageRecog3.4[16, 64, 64, 64, 4]"
 
 print(f"Loading model: '{NAME}'")
 
@@ -23,14 +23,14 @@ print(f"Loading model: '{NAME}'")
 json = None
 
 # Read the architecture jsonfile
-with open(f"checkpoints/{NAME}|structure.json", "r") as jsonfile:
+with open(f"checkpoints.private/{NAME}|structure.json", "r") as jsonfile:
     json = j.load(jsonfile)
 
 # Load the json into the model
 model = model_from_json(str(json))
 
 # Load the hd5 weights model
-model.load_weights(f"checkpoints/{NAME}|weights.best.hd5")
+model.load_weights(f"checkpoints.private/{NAME}|weights.best.hd5")
 
 # Compile the model
 model.compile(
@@ -57,7 +57,7 @@ while True:
 """) 
 
         # Get the user's input word
-        word = input("Try me!> ")
+        word = input("  Try me!> ")
 
         while True:
 
@@ -66,10 +66,10 @@ while True:
                 break
             else:
                 # Let the user know where the problem is 
-                print(f"Bad char: '{context.validate(word)[1]}'")
+                print(f"    Bad char: '{context.validate(word)[1]}'")
 
             # Scold the user for being bad
-            word = input("Please enter a valid word> ")
+            word = input("  Please enter a valid word> ")
 
         # Judo slice
         word = word[:16]
@@ -80,14 +80,14 @@ while True:
         # Get the network's guess
         Ynew = model.predict_classes(Xnew)
 
-        print(f"The network guesses: {context.contextualize(Ynew)}")
+        print(f"    The network guesses: {context.contextualize(Ynew)}")
 
-        print("\nPress enter to try again...")
+        print("\n   Press enter to try again...")
 
         input()
 
 
     except KeyboardInterrupt:
     # Smoother quit
-        print("\nQuitting...")
+        print("\n   Quitting...")
         quit()

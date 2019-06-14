@@ -4,11 +4,12 @@
 # Old code that I don't wanna throw away but that should never see the light of day again
 archive/
 
-# Training checkpoints (generated) 
-checkpoints/
-
 # All local json files aren't useful/are generated
 *.json
 
 # Secret
 apikey
+
+# Generic blanket ignoring
+*.private.*
+*.private/

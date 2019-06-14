@@ -13,7 +13,7 @@ import data.newScripts.generateMatrix
 from json import dump
 
 # The AI's name (and structure) for saving
-NAME = "languageRecog3.3[16, 64, 64, 4]"
+NAME = "languageRecog3.4[16, 64, 64, 64, 4]"
 
 # The training data, where X is input data and y is the expected output
 x_train, y_train = data.newScripts.generateMatrix.main()
@@ -25,7 +25,8 @@ model = Sequential()
 model.add(Dense(units=16, activation='relu', input_shape=(16, )))
 model.add(Dense(units=64, activation="relu"))
 model.add(Dense(units=64, activation="relu"))
-model.add(Dense(units=4, activation='sigmoid'))
+model.add(Dense(units=64, activation="relu"))
+model.add(Dense(units=4, activation='softmax'))
 
 # Compile the model
 model.compile(
@@ -34,8 +35,8 @@ model.compile(
     metrics=['accuracy'])
 
 # Where the model will be 'saved'
-weightsfile_path = f"checkpoints/{NAME}|weights.best.hd5"
-structurefile_path = f"checkpoints/{NAME}|structure.json"
+weightsfile_path = f"checkpoints.private/{NAME}|weights.best.hd5"
+structurefile_path = f"checkpoints.private/{NAME}|structure.json"
 
 # Dump the structure to the approriate file
 with open(structurefile_path, "w") as structurefile:
